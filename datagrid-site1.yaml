@@ -20,7 +20,7 @@ spec:
           url: openshift://api.cluster-a222.a222.sandbox1808.opentlc.com:6443
           secretName: 222-token
         - name: lab
-          url: openshift://api.openshift-cluster-lab.healthlabgw.com:6443
+          url: openshift://api.openshift-cluster-test.com:6443
           secretName: lab-token
   logging: 
     categories:
