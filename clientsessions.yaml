@@ -1,0 +1,16 @@
+apiVersion: infinispan.org/v2alpha1
+kind: Cache
+metadata:
+  namespace: datagrid
+  name: clientsessions
+spec:
+  adminAuth:
+    secretName: basic-auth
+  clusterName: rhsso-infinispan
+  name: clientSessions
+  template: >-
+    <infinispan><cache-container statistics="true"><metrics gauges="true"
+    histograms="true" /><replicated-cache
+    name="clientSessions" mode="SYNC" start="EAGER"
+    statistics="true"><transaction mode="NONE" locking="PESSIMISTIC"/><locking
+    acquire-timeout="0" /></replicated-cache></cache-container></infinispan>

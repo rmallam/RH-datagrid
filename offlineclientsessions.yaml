@@ -1,0 +1,15 @@
+apiVersion: infinispan.org/v2alpha1
+kind: Cache
+metadata:
+  namespace: datagrid
+  name: offlineclientsessions
+spec:
+  adminAuth:
+    secretName: basic-auth
+  clusterName: rhsso-infinispan
+  name: offlineClientSessions
+  template: >-
+    <infinispan><cache-container statistics="true"><metrics gauges="true"
+    histograms="true" /><replicated-cache name="offlineClientSessions" mode="SYNC"
+    start="EAGER"><transaction mode="NONE" locking="PESSIMISTIC"/><locking
+    acquire-timeout="0" /></replicated-cache></cache-container></infinispan>

@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tcp
+  labels:
+    app: infinispan-service-xsite
+    clusterName: example-infinispan
+  name: example-infinispan-site
+  namespace: datagrid-dr
+spec:
+  clusterIP: 172.30.171.166
+  clusterIPs:
+  - 172.30.171.166
+  externalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - nodePort: 30847
+    port: 7900
+    protocol: TCP
+    targetPort: 7900
+  selector:
+    app: infinispan-pod
+    clusterName: example-infinispan
+    coordinator: "true"
+    infinispan_cr: example-infinispan
+  sessionAffinity: None
+  type: LoadBalancer

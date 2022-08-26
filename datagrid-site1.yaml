@@ -1,0 +1,28 @@
+apiVersion: infinispan.org/v1
+kind: Infinispan
+metadata:
+  name: example-infinispan
+spec:
+  expose:
+    type: Route
+  replicas: 1
+  security:
+    endpointSecretName: rhinfispan-secret
+  service:
+    type: DataGrid
+    sites:
+      local:
+        name: opentlc
+        expose:
+          type: LoadBalancer
+      locations:
+        - name: opentlc
+          url: openshift://api.cluster-a222.a222.sandbox1808.opentlc.com:6443
+          secretName: 222-token
+        - name: lab
+          url: openshift://api.openshift-cluster-lab.healthlabgw.com:6443
+          secretName: lab-token
+  logging: 
+    categories:
+      org.jgroups.protocols.TCP: error
+      org.jgroups.protocols.relay.RELAY2: error      

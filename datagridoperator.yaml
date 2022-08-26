@@ -1,0 +1,33 @@
+apiVersion: infinispan.org/v1
+kind: Infinispan
+metadata:
+  name: example-infinispan
+spec:
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - podAffinityTerm:
+            labelSelector:
+              matchLabels:
+                app: infinispan-pod
+                clusterName: example-infinispan
+                infinispan_cr: example-infinispan
+            topologyKey: kubernetes.io/hostname
+          weight: 100
+  container:
+    cpu: 500m
+    memory: 512Mi
+  expose:
+    host: >-
+      example-infinispan-external-datagrid.apps.cluster-1078.1078.sandbox568.opentlc.com
+    type: Route
+  image: >-
+    registry.redhat.io/datagrid/datagrid-8-rhel8@sha256:98e9a6618558bc8a1b9cb91d1c9b3380968d335092f6e953d1abe6af96abf65c
+  replicas: 3
+  security:
+    endpointEncryption:
+      certSecretName: example-infinispan-cert-secret
+      certServiceName: service.beta.openshift.io
+      type: Service
+  service:
+    type: DataGrid

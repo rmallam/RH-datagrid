@@ -1,0 +1,14 @@
+apiVersion: infinispan.org/v2alpha1
+kind: Cache
+metadata:
+  namespace: datagrid
+  name: work
+spec:
+  adminAuth:
+    secretName: basic-auth
+  clusterName: rhsso-infinispan
+  name: work
+  template: >-
+    <infinispan><cache-container><replicated-cache name="work" mode="SYNC"
+    start="EAGER"><transaction mode="NONE" locking="PESSIMISTIC"/><locking
+    acquire-timeout="0" /></replicated-cache></cache-container></infinispan>
